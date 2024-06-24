@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('role_id')
             ->restrictOnDelete()
+            ->default(3)
             ->constrained();
             $table->timestamps();
         });
