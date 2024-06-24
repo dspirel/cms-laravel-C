@@ -1,17 +1,19 @@
 @extends('app')
 
 @section('title')
-    Dashboard
+    Users
 @endsection
 
 @section('content')
     <div class="container">
         <div class="flex-column justify-content-center">
             <div class="p-2">
-                <h1>Dashboard</h1>
+                <h1>Users</h1>
             </div>
             <div class="p-2">
-                <h1>Hello {{ auth()->user()->role_id }}</h1>
+                @foreach ($users as $user)
+                    <p>User: {{ $user->name }}</p>
+                @endforeach
             </div>
         </div>
     </div>

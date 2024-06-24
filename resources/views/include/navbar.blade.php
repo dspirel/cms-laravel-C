@@ -15,6 +15,16 @@
                         <a class="nav-link" href="#">Placeholder</a>
                     </li>
                 @endauth
+                @if(Route::is('dashboard.*'))
+                    @admin
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.show') }}">Users</a>
+                    </li>
+                    @endadmin
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roles.show') }}">Roles</a>
+                    </li> --}}
+                @endif
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 pe-5">
                 @auth

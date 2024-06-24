@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +20,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', AuthController::class . '@showDashboard')->name('dashboard.show');
     Route::get('/logout', AuthController::class . '@logout')->name('logout');
 });
+
+Route::get('/users', UserController::class . '@index')->name('users.show');
