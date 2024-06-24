@@ -15,6 +15,7 @@
                         <a class="nav-link" href="#">Placeholder</a>
                     </li>
                 @endauth
+<<<<<<< cms-users-func
                 @if(Route::is('dashboard.*'))
                     @admin
                     <li class="nav-item">
@@ -25,6 +26,8 @@
                         <a class="nav-link" href="{{ route('roles.show') }}">Roles</a>
                     </li> --}}
                 @endif
+=======
+>>>>>>> dev
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 pe-5">
                 @auth

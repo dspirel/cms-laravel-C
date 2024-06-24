@@ -13,6 +13,7 @@
     </title>
   </head>
 
+<<<<<<< cms-users-func
   <body>
     {{-- comment --}}
     @include('include.navbar')
@@ -21,6 +22,17 @@
     <div class="container">
         @yield('content')
     </div>
+=======
+@php
+    $navbar = $navbar ?? true;
+@endphp
+
+  <body>
+    @includeWhen($navbar, 'include.navbar')
+    @include('include.alert')
+
+    @yield('content')
+>>>>>>> dev
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>

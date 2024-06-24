@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< cms-users-func
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+=======
+use Illuminate\Http\Request;
+>>>>>>> dev
 
 class UserController extends Controller
 {
@@ -13,11 +17,15 @@ class UserController extends Controller
      */
     public function index()
     {
+<<<<<<< cms-users-func
         if (! Gate::allows('is-admin')) {
             abort(403);
         }
         $users = User::all();
         return view('admin.show-users', ['users' => $users]);
+=======
+        //
+>>>>>>> dev
     }
 
     /**
