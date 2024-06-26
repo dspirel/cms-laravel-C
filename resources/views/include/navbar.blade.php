@@ -20,10 +20,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.show') }}">Users</a>
                     </li>
-                    @endadmin
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('roles.show') }}">Roles</a>
-                    </li> --}}
+                    </li>
+                    @endadmin
                 @endif
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 pe-5">

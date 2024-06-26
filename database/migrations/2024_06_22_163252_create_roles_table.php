@@ -11,13 +11,15 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string("name")->unique();
+            $table->boolean('active')
+                  ->default(1);
+            $table->timestamps();
         });
 
         DB::table('roles')->insert([
+            ['name' => 'user'],
             ['name' => 'admin'],
-            ['name' => 'journalist'],
-            ['name' => 'reader']
         ]);
     }
 

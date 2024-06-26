@@ -14,15 +14,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('role_id')
-            ->restrictOnDelete()
-            ->default(3)
-            ->constrained();
+                  ->restrictOnDelete()
+                  ->default(1)
+                  ->constrained();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
+        // Schema::table('users', function (Blueprint $table){
+        //     $table->dropForeign('role_id');
+        // });
         Schema::dropIfExists('users');
     }
 };

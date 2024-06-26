@@ -23,11 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('is-admin', function (User $user) {
-            return $user->role_id === 1;
+            return $user->role_id === 2;
         });
 
         Blade::if('admin', function () {
-            return auth()->user()?->role_id === 1;
+            return auth()->user()?->role_id === 2;
         });
     }
 }
