@@ -11,8 +11,8 @@ class RolePolicy
     public function before(User $user, string $ability): bool|null
     {
         //protect user and admin role from updating
-        dump($ability);
-        if ($ability == 'update') return null;
+        // dump($ability);
+        // if ($ability == 'update') return null;
 
         $userPermissions = $this->getRolePermissions($user->role_id);
 
@@ -30,9 +30,6 @@ class RolePolicy
         //
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Role $role)
     {
         dump($role);
