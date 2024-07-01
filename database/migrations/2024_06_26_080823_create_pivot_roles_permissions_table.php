@@ -24,10 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('role_permission', function (Blueprint $table){
-        //     $table->dropForeign('role_id');
-        //     $table->dropForeign('permission_id');
-        // });
         Schema::dropIfExists('role_permission');
     }
 };

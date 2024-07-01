@@ -17,19 +17,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description', 512);
         });
-
-        DB::table('permissions')->insert([
-            [
-            'name' => 'manage_users',
-            'description' => 'Create,update,delete,view users.'
-            ],
-            [
-            'name' => 'manage_roles',
-            'description' => 'Create,update,delete,view roles.'
-            ],
-            //TODO - add more permissions for pages and navigation
-
-        ]);
     }
 
     /**

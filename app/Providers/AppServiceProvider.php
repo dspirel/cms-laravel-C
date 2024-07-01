@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +23,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('is-admin', function (User $user) {
-            return $user->role_id === 2;
+        // Gate::define('permission', function (User $user,Closure $next, string $permission) {
+        //     $userPermissions = Role::findOrFail($user->id)->permissions()->get();
+        //     $userPermissions->pluck('name');
+
+        //     if (in_array($permission, $userPermissions)) return true;
+
+        //     return false;
+        // });
+
+        Blade::if('role', function ($role_name) {
+            $role = Role::where('id', auth()->user()?->role_id)->first();
+            return $role_name === $role->name;
         });
 
-        Blade::if('admin', function () {
-            return auth()->user()?->role_id === 2;
+        DB::listen(function ($query) {
+            Log::info($query->sql, $query->bindings);
         });
     }
 }

@@ -39,21 +39,11 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function test()
-    {
-        return response('safasf');
-    }
-
     public function register(RegisterRequest $request): RedirectResponse
     {
         $user = User::create($request->validated());
 
         return redirect('login');
-    }
-
-    public function showDashboard()
-    {
-        return view('admin.dashboard');
     }
 
     public function logout(Request $request): RedirectResponse

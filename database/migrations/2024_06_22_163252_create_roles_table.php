@@ -16,11 +16,6 @@ return new class extends Migration
                   ->default(1);
             $table->timestamps();
         });
-
-        DB::table('roles')->insert([
-            ['name' => 'user'],
-            ['name' => 'admin'],
-        ]);
     }
 
     public function down(): void
