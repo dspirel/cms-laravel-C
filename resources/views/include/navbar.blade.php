@@ -1,3 +1,5 @@
+@inject('nav', 'App\Helpers\Navigation' )
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">News</a>
@@ -10,20 +12,25 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Placeholder</a>
-                    </li>
-                @endauth
                 @if (Route::is('dashboard.*'))
-                    @role('admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard.pages.index') }}">Pages</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard.users.index') }}">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard.roles.index') }}">Roles</a>
                         </li>
-                    @endrole
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard.navigation.index') }}">Navigation</a>
+                        </li>
+                @else
+                    @foreach ($nav->getLinks() as $link)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/nav/{{ $link->name }}"> {{ $link->name }} </a>
+                        </li>
+                    @endforeach
                 @endif
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 pe-5">

@@ -9,11 +9,15 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
     public function index(): View
     {
+        //Policy
+        Gate::authorize('all', Role::class);
+
         $roles = Role::all();
         //sort by active column
         $sorted = $roles->sortByDesc('active');
@@ -22,17 +26,22 @@ class RoleController extends Controller
         return view('dashboard.roles.index', ['roles' => $sorted]);
     }
 
-    public function edit($id): View
+    public function edit(Role $role): View
     {
-        $role = Role::findOrFail($id);
+        //Policy
+        Gate::authorize('update', $role);
+
         $permissions = Permission::all();
         $current_permissions = $role->permissions()->get();
 
         return view('dashboard.roles.edit', compact('role', 'permissions', 'current_permissions'));
     }
 
-    public function update($id, Request $request): RedirectResponse
+    public function update(Role $role, Request $request): RedirectResponse
     {
+        //Policy
+        Gate::authorize('update', $role);
+
         $permissions = $request->except('_token', '_method', 'name', 'active');
         //check if atleast one permission checkbox ticked
         if (empty($permissions)) {
@@ -40,10 +49,10 @@ class RoleController extends Controller
         }
 
         $request->validate([
-            'name' => ['required', Rule::unique('roles')->ignore($id)]
+            'name' => ['required', Rule::unique('roles')->ignore($role->id)]
         ]);
 
-        $role = Role::findOrFail($id);
+        //TODO  ----- use fill() -------------
         $role->update(['name' => $request->name, 'active' => $request->has('active')]);
         $role->permissions()->sync(array_values($permissions));
 
@@ -52,6 +61,9 @@ class RoleController extends Controller
 
     public function create(): View
     {
+        //Policy
+        Gate::authorize('all', Role::class);
+
         $permissions = Permission::all();
 
         return view('dashboard.roles.create', compact('permissions'));
@@ -59,6 +71,9 @@ class RoleController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        //Policy
+        Gate::authorize('all', Role::class);
+
         $request->validate([
             'name' => 'required|unique:roles'
         ]);
@@ -77,9 +92,11 @@ class RoleController extends Controller
         return redirect('/dashboard/roles');
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(Role $role): RedirectResponse
     {
-        $role = Role::findOrFail($id);
+        //Policy
+        Gate::authorize('delete', $role);
+
         //clean pivot table
         $role->permissions()->detach();
 

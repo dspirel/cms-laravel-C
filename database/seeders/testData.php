@@ -51,15 +51,27 @@ class testData extends Seeder
             'description' => 'Create,update,delete,view roles.'
             ],
             [
-            'name' => 'manage_comments',
-            'description' => 'Create,update,delete,view own comments.'
+            'name' => 'manage_OWN_comments',
+            'description' => 'Create,update,delete,view OWN comments.'
             ],
             [
-            'name' => 'manage_pages',
-            'description' => 'Create,update,delete,view own pages.'
+            'name' => 'manage_ALL_comments',
+            'description' => 'Create,update,delete,view ALL comments.'
+            ],
+            [
+            'name' => 'manage_OWN_pages',
+            'description' => 'Create,update,delete,view OWN pages.'
+            ],
+            [
+            'name' => 'manage_ALL_pages',
+            'description' => 'Create,update,delete,view ALL pages.'
+            ],
+            [
+            'name' => 'manage_navigation',
+            'description' => 'Manage navigation bar.'
             ],
         ]);
-        //add pivot data role_permission
+        //add pivot data role_permission for user,admin
         DB::table('role_permission')->insert([
             [
             'role_id' => 1,
@@ -81,6 +93,28 @@ class testData extends Seeder
             'role_id' => 2,
             'permission_id' => 4
             ],
+            [
+            'role_id' => 2,
+            'permission_id' => 5
+            ],
+            [
+            'role_id' => 2,
+            'permission_id' => 6
+            ],
+            [
+            'role_id' => 2,
+            'permission_id' => 7
+            ],
+        ]);
+        //add page categories
+        DB::table('page_categories')->insert([
+            ['name' => 'Politics'],
+            ['name' => 'Education'],
+            ['name' => 'Health'],
+            ['name' => 'Economy'],
+            ['name' => 'Business'],
+            ['name' => 'Entertainment'],
+            ['name' => 'Sport'],
         ]);
     }
 }

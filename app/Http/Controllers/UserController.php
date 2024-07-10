@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Role;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -15,9 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // if (! Gate::allows('is-admin')) {
-        //     abort(403);
-        // }
+        //Policy
+        Gate::authorize('all', User::class);
+
         $users = User::all();
         return view('dashboard.users.index', compact('users'));
     }
@@ -27,6 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        //Policy
+        Gate::authorize('all', User::class);
+
         $roles = Role::all();
         return view('dashboard.users.create', compact('roles'));
     }
@@ -36,6 +40,9 @@ class UserController extends Controller
      */
     public function store(RegisterRequest $request)
     {
+        //Policy
+        Gate::authorize('all', User::class);
+
         //check if role selected
         if (empty($request->role)) return back()->withErrors(['err' => 'Role required.']);
 
@@ -59,6 +66,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        //Policy
+        Gate::authorize('all', User::class);
+
         $roles = Role::all();
         return view('dashboard.users.edit', compact('user', 'roles'));
     }
@@ -68,12 +78,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        //Policy
+        Gate::authorize('all', User::class);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:16'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'role' => ['required']
         ]);
-        //add role to fillable???
+        //TODO  ----- use fill() -------------
         $user->update($validated);
         $user->role_id = $validated['role'];
         $user->save();
@@ -86,6 +99,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //Policy
+        Gate::authorize('all', User::class);
+
         $user->delete();
 
         return redirect('/dashboard/users');

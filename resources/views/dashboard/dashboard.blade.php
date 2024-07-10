@@ -11,7 +11,7 @@
                 <h1>Dashboard</h1>
             </div>
             <div class="p-2">
-                <h1>Hello {{ auth()->user()->role_id }}</h1>
+                <h1>Hello {{ auth()->user()->name }}</h1>
             </div>
         </div>
     </div>

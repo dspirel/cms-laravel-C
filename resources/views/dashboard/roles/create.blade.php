@@ -21,6 +21,7 @@
                         <li>
                             <input type="checkbox" name="{{ $p->name }}" value="{{ $p->id }}" />
                             <label for="{{ $p->name }}"> {{ $p->name }} </label>
+                            <p>{{ $p->description }}</p>
                         </li>
                     @endforeach
                 </ul>
